@@ -4,7 +4,7 @@
 <link rel="import" href="../../bower_components/firebase-element/firebase-login.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 
-<polymer-element name="fire-login" attributes="" layout vertical>
+<polymer-element name="fire-login" attributes="dbLocation" layout vertical>
   <template>
     <style>
       :host {
@@ -14,7 +14,7 @@
     <firebase-login id="fbaseLogin"
       user="{{user}}"
       statusKnown="{{statusKnown}}"
-      location="https://fbase-oauth-examp.firebaseio.com/"
+      location="{{dbLocation}}"
       provider="password"
       on-login="{{onLogin}}"
       on-error="{{onLoginError}}"
