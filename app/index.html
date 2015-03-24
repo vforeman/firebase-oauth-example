@@ -21,31 +21,10 @@
   </head>
   <body unresolved fullbleed>
     <template is="auto-binding" id="app">
+      <fb-oauth-app>
 
-    <core-drawer-panel>
-      <core-header-panel drawer>
-        <core-toolbar>
-          Menu
-        </core-toolbar>
-        <core-menu>
-          <core-item> login</core-item>
-          <core-item> register</core-item>
-        </core-menu>
-      </core-header-panel>
-      <core-header-panel main>
-        <core-toolbar>
-          <div flex class="">
-            firebase oauth example
-          </div>
-        </core-toolbar>
-        email<!-- MAIN CONTENT -->
-        <div class="container" layout vertical>
-          <core-pages>
-                <fire-login dbLocation="https://fbase-oauth-examp.firebaseio.com/"></fire-login>
-          </core-pages>
-        </div>
-      </core-header-panel>
-    </core-drawer-panel>
+      </fb-oauth-app>
+    
     </template>
 
     <!-- build:js scripts/app.js -->
