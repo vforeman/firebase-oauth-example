@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/firebase-element/firebase-login.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 
 <polymer-element name="fire-login" attributes="" layout vertical>
   <template>
@@ -14,18 +15,56 @@
       user="{{user}}"
       statusKnown="{{statusKnown}}"
       location="https://fbase-oauth-examp.firebaseio.com/"
-      provider="password"></firebase-login>
+      provider="password"
+      on-login="{{onLogin}}"
+      on-error="{{onLoginError}}"
+      on-user-created="{{userCreated}}"></firebase-login>
 
-    <paper-input label="email"></paper-input>
-    <paper-input label="password"></paper-input>
-    <paper-input label="confirm password"></paper-input>
-    <paper-button raised>submit</paper-button>
+    <paper-input floatingLabel id="email" label="email"></paper-input>
+    <paper-input floatingLabel id="password" label="password"></paper-input>
+    <paper-input floatingLabel id="confirmPassword" label="confirm password"></paper-input>
+    <div layout horizontal>
+    <paper-button raised
+      on-click="{{login}}">login</paper-button>
+    <paper-button raised
+      on-click="{{register}}">register</paper-button>
+    </div>
 
+    <paper-toast id="toast" text="{{toastMessage}}"></paper-toast>
   </template>
   <script>
     (function () {
       Polymer({
         // define element prototype here
+        login: function(){
+          //get form data
+
+          this.$.fbaseLogin.login({email: this.$.email.value, password: this.$.password.value});
+
+        },
+        register: function(){
+          this.$.fbaseLogin.createUser(this.$.email.value, this.$.password.value);
+
+        },
+        onLogin: function(event){
+          console.log(event);
+          console.log("successful login");
+          this.showToast(" successfully logged in");
+        },
+        onLoginError: function(event){
+          console.log(event.detail);
+          console.log("not logged in");
+          this.showToast(event.detail.message);
+        },
+        userCreated: function(event){
+          console.log("user succesdully created", event);
+          this.showToast("user successfully created");
+
+        },
+        showToast: function(message){
+          this.toastMessage = message;
+          this.$.toast.show();
+        }
       });
     })();
   </script>
