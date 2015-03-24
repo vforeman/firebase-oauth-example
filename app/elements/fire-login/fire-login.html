@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/firebase-element/firebase-login.html">
+
+<polymer-element name="fire-login" attributes="" layout vertical>
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <firebase-login id="fbaseLogin"
+      user="{{user}}"
+      statusKnown="{{statusKnown}}"
+      location="https://fbase-oauth-examp.firebaseio.com/"
+      provider="password"></firebase-login>
+
+    <paper-input label="email"></paper-input>
+    <paper-input label="password"></paper-input>
+    <paper-input label="confirm password"></paper-input>
+    <paper-button raised>submit</paper-button>
+
+  </template>
+  <script>
+    (function () {
+      Polymer({
+        // define element prototype here
+      });
+    })();
+  </script>
+</polymer-element>
