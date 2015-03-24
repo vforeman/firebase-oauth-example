@@ -19,12 +19,32 @@
     <link rel="import" href="elements/elements.html">
     <!-- endbuild-->
   </head>
-  <body unresolved>
-    <div class="hero-unit">
-      <yo-greeting></yo-greeting>
-      <p>You now have</p>
-      <yo-list></yo-list>
-    </div>
+  <body unresolved fullbleed>
+    <template is="auto-binding" id="app">
+
+    <core-drawer-panel>
+      <core-header-panel drawer>
+        <core-toolbar>
+          Menu
+        </core-toolbar>
+        <core-menu>
+          <core-item> item 1</core-item>
+        </core-menu>
+      </core-header-panel>
+      <core-header-panel main>
+        <core-toolbar>
+          <div flex class="">
+            toolbar
+          </div>
+        </core-toolbar>
+        <div class="container" layout vertical>
+          <core-pages>
+
+          </core-pages>
+        </div>
+      </core-header-panel>
+    </core-drawer-panel>
+    </template>
 
     <!-- build:js scripts/app.js -->
     <script src="scripts/app.js"></script>
