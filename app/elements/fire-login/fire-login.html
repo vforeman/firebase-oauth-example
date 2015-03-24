@@ -22,12 +22,12 @@
 
     <paper-input floatingLabel id="email" label="email"></paper-input>
     <paper-input floatingLabel id="password" label="password"></paper-input>
-    <paper-input floatingLabel id="confirmPassword" label="confirm password"></paper-input>
+    <paper-input floatingLabel id="confirmPassword" hidden?="{{!toggleConfirmPassword}}" label="confirm password"></paper-input>
     <div layout horizontal>
     <paper-button raised
       on-click="{{login}}">login</paper-button>
-    <paper-button raised
-      on-click="{{register}}">register</paper-button>
+    <paper-button id="registerBtn" raised
+      on-click="{{register}}" >register</paper-button>
     </div>
 
     <paper-toast id="toast" text="{{toastMessage}}"></paper-toast>
@@ -36,6 +36,11 @@
     (function () {
       Polymer({
         // define element prototype here
+        toggleConfirmPassword : false,
+
+        ready : function(){
+
+        },
         login: function(){
           //get form data
 
@@ -43,7 +48,16 @@
 
         },
         register: function(){
-          this.$.fbaseLogin.createUser(this.$.email.value, this.$.password.value);
+          if(!this.toggleConfirmPassword){
+            // this.$.confirmPassword.show();
+            this.toggleConfirmPassword = true;
+          } else {
+            if(this.passwordValid()){
+              this.$.fbaseLogin.createUser(this.$.email.value, this.$.password.value);
+            } else {
+              this.showToast("passwords don't match");
+            }
+          }
 
         },
         onLogin: function(event){
@@ -64,6 +78,9 @@
         showToast: function(message){
           this.toastMessage = message;
           this.$.toast.show();
+        },
+        passwordValid: function(){
+          return this.$.password.value == this.$.confirmPassword.value;
         }
       });
     })();
