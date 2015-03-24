@@ -22,6 +22,18 @@
         display: block;
       }
     </style>
+
+    <firebase-element id="firebaseElement"
+      location="https://fbase-oauth-examp.firebaseio.com/test"
+      data="{{data}}"
+      keys="{{keys}}"
+      on-data-ready="{{dataReady}}"
+      on-data-change="{{dataChange}}"
+      on-error="{{fbElementError}}">
+    </firebase-element>
+    <!-- <template repeat="{{key in keys}}">
+      <p>{{key}}: {{data[key]}}</p>
+    </template> -->
     <core-drawer-panel>
       <core-header-panel drawer>
         <core-toolbar>
@@ -57,7 +69,9 @@
                   home
               </section>
               <section route="login">
-                  <fire-login id="fireLogin" dbLocation="https://fbase-oauth-examp.firebaseio.com/" user="{{user}}"></fire-login>
+                  <fire-login id="fireLogin"
+                    dbLocation="https://fbase-oauth-examp.firebaseio.com/"
+                    user="{{user}}"></fire-login>
               </section>
               <section route="events">
                 events
@@ -75,6 +89,17 @@
         logout: function(){
           console.log("logging out");
           this.$.fireLogin.logout();
+        },
+        dataReady: function(event){
+          console.log(event);
+          console.log(this.$.firebaseElement.data);
+        },
+        dataChange: function(event){
+          console.log(event);
+        },
+        fbElementError: function(event){
+          console.log(event);
+
         }
       });
     })();

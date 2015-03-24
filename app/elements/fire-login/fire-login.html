@@ -19,7 +19,7 @@
       on-login="{{onLogin}}"
       on-error="{{onLoginError}}"
       on-user-created="{{userCreated}}"></firebase-login>
-    
+
     <paper-input floatingLabel id="email" label="email"></paper-input>
     <paper-input floatingLabel id="password" type="password" label="password"></paper-input>
     <paper-input floatingLabel id="confirmPassword" hidden?="{{!toggleConfirmPassword}}" label="confirm password"></paper-input>
@@ -65,6 +65,7 @@
 
         },
         onLogin: function(event){
+          console.log(this.user);
           console.log(event);
           console.log("successful login");
           this.showToast(" successfully logged in");
