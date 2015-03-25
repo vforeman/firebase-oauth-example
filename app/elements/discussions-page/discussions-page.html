@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
-<polymer-element name="discussions-page" attributes="">
+<polymer-element name="discussions-page" attributes="" layout vertical>
   <template>
     <style>
       :host {
@@ -9,14 +9,47 @@
       }
     </style>
     discussions page
-    <paper-input id="newNoteInput"
-               floatingLabel
-               label="Add a new note"></paper-input>
+    <div id="newDiscussionForm"
+      layout vertical>
+
+      <paper-input id="newDiscussionTopicInput"
+         on-change="{{addDiscussion}}"
+         value="{{newDiscussionTopic}}"
+         floatingLabel
+         label="topic"></paper-input>
+      <paper-input id="newDiscussionBodyInput"
+         on-change="{{addDiscussionBody}}"
+         value="{{newDiscussion}}"
+         floatingLabel
+         label="Add a new discussion"></paper-input>
+    </div>
   </template>
   <script>
     (function () {
       Polymer({
         // define element prototype here
+        discussions:[],
+        ready: function(){
+          this.$.newDiscussionForm.style.display = "none";
+        },
+        showNewDiscussionForm: function(){
+          this.$.newDiscussionForm.style.display = "block";
+        },
+        addDiscussion: function() {
+          if (this.newDiscussiontopic && this.newDiscussionBody) {
+            this.data.unshift({
+              topic: this.newDiscussionTopic,
+              body: this.newDiscussionBody,
+              done: false
+            });
+            this.$.newDiscussionForm.style.display = 'none';
+            this.$.newDiscussionTopicInput.value = null;
+            this.$.newDiscussionBodyInput.value = null;
+          }
+        },
+        discussionsChanged:function(){
+          console.log(this.discussions);
+        }
       });
     })();
   </script>
