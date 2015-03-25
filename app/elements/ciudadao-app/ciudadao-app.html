@@ -13,6 +13,7 @@
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../fire-login/fire-login.html">
 <link rel="import" href="../discussions-page/discussions-page.html">
 
@@ -22,6 +23,13 @@
       :host {
         display: block;
         font-size:1.3em;
+      }
+      paper-fab {
+        background-color: blue;
+        position: absolute !important;
+        bottom: -27px;
+        right: 8em;
+        z-index: 10;
       }
       [drawer] {
         background-color: #fff;
@@ -71,8 +79,9 @@
       <p>{{key}}: {{data[key]}}</p>
     </template> -->
     <core-drawer-panel id="drawerPanel">
+      <!-- MENU SIDE PANEL -->
       <core-header-panel drawer>
-        <core-toolbar class="medium-tall">
+        <core-toolbar class="">
           <paper-icon-button
             icon="arrow-back"
             on-click="{{toggleDrawer}}"></paper-icon-button>
@@ -95,8 +104,9 @@
           </core-menu>
         </more-route-selector>
       </core-header-panel>
+      <!-- MAIN PANEL -->
       <core-header-panel main>
-        <core-toolbar class="medium-tall">
+        <core-toolbar class="">
           <paper-icon-button
             icon="menu"
             on-click="{{toggleDrawer}}"></paper-icon-button>
@@ -108,7 +118,7 @@
           <div flex>
           </div>
            <paper-button  id="logoutBtn" on-click="{{logout}}"> logout</paper-button>
-
+           <paper-fab icon="icons:add" on-click="{{showNewDicussionInput}}"></paper-fab>
         </core-toolbar>
         <!-- MAIN CONTENT -->
         <div class="container" layout vertical>
@@ -152,6 +162,9 @@
         },
         toggleDrawer:function(){
           this.$.drawerPanel.togglePanel()
+        },
+        showNewDiscussionInput: function(){
+
         }
       });
     })();
