@@ -7,6 +7,16 @@
       :host {
         display: block;
       }
+      .item {
+        margin: 1em;
+      }
+
+      .card {
+        width: 300px;
+        background-color: #fff;
+        padding: 1em;
+        position: relative;
+      }
     </style>
     discussions page
     <div id="newDiscussionForm"
@@ -23,6 +33,20 @@
          floatingLabel
          label="Add a new discussion"></paper-input>
     </div>
+    <template
+      repeat="{{discussions}}">
+      <div center horizontal layout class="item">
+        <paper-checkbox checked="{{done}}"></paper-checkbox>
+        <div flex class="card">
+          <h1>{{topic}}</h1>
+          <p>{{body}}</p>
+        </div>
+      </div>
+      <template
+        repeat="{{replies}}">
+        replies
+      </template>
+    </template>
   </template>
   <script>
     (function () {
@@ -34,13 +58,14 @@
         },
         showNewDiscussionForm: function(){
           this.$.newDiscussionForm.style.display = "block";
+          this.$.newDiscussionTopicInput.focus();
         },
         addDiscussion: function() {
           if (this.newDiscussionTopic && this.newDiscussionBody) {
             this.discussions.unshift({
               topic: this.newDiscussionTopic,
               body: this.newDiscussionBody,
-              done: false
+              replies: []
             });
             this.$.newDiscussionForm.style.display = 'none';
             this.$.newDiscussionTopicInput.value = null;
