@@ -14,12 +14,48 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../fire-login/fire-login.html">
+<link rel="import" href="../discussions-page/discussions-page.html">
 
 <polymer-element name="ciudadao-app" attributes="">
   <template>
     <style>
       :host {
         display: block;
+        font-size:1.3em;
+      }
+      [drawer] {
+        background-color: #fff;
+
+      }
+
+      [main] > div {
+        padding: 2em;
+      }
+
+      [drawer] > core-item {
+        padding: 1em;
+
+      }
+
+      [main] paper-checkbox {
+        margin-right: 1em;
+      }
+
+      [main] {
+        height: 100%;
+        background-color: #f1f1f3;
+      }
+
+      [drawer] core-toolbar {
+        background-color: #ffd96a;
+        color: #fff;
+
+      }
+
+      [main] core-toolbar {
+        background-color: #ffc107;
+        color: #fff;
+
       }
     </style>
 
@@ -36,46 +72,53 @@
     </template> -->
     <core-drawer-panel>
       <core-header-panel drawer>
-        <core-toolbar>
-          Menu
+        <core-toolbar class="medium-tall">
+          <span class="">
+            Menu
+          </span>
         </core-toolbar>
         <more-route-selector>
           <core-menu selected="{{page}}" valueAttr="route">
-            <core-item route="home" label="home">
-              <a href="{{urlFor('home')}}"></a>
-            </core-item>
-            <core-item route="login" label="login">
-              <a href="{{urlFor('login')}}"></a>
+            <core-item route="discussions" label="discussions">
+              <a href="{{urlFor('discussions')}}"></a>
             </core-item>
             <core-item route="events" label="events">
               <a href="{{urlFor('events')}}"></a>
             </core-item>
+            <core-item route="login" label="login">
+              <a href="{{urlFor('login')}}"></a>
+            </core-item>
+
           </core-menu>
         </more-route-selector>
       </core-header-panel>
       <core-header-panel main>
-        <core-toolbar>
-          <div flex class="">
-            firebase oauth example
+        <core-toolbar class="medium-tall">
+          <span  class="">
+            Cidadao10
+          </span>
+          <paper-icon-button id="accountBox" icon="account-box"></paper-icon-button>
+          <div flex>
           </div>
-          <paper-button id="logoutBtn" on-click="{{logout}}"> logout</paper-button>
+           <paper-button  id="logoutBtn" on-click="{{logout}}"> logout</paper-button>
 
         </core-toolbar>
         <!-- MAIN CONTENT -->
         <div class="container" layout vertical>
           <more-route-selector>
             <core-pages selected="{{page}}" valueAttr="route">
-              <section route="home">
-                  home
+              <section route="discussions">
+                  <discussions-page></discussions-page>
+              </section>
+              <section route="events">
+                  events
               </section>
               <section route="login">
                   <fire-login id="fireLogin"
                     dbLocation="https://fbase-oauth-examp.firebaseio.com/"
                     user="{{user}}"></fire-login>
               </section>
-              <section route="events">
-                events
-              </section>
+
             </core-pages>
           </more-route-selector>
         </div>
