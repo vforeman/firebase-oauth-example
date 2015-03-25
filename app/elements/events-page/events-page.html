@@ -1,11 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/core-localstorage/core-localstorage.html">
-<link rel="import" href="../../bower_components/paper-shadow/paper-shadow.html">
 <link rel="import" href="../../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-shadow/paper-shadow.html">
 
-<polymer-element name="discussions-page" attributes="user" layout vertical>
+<polymer-element name="events-page" attributes="user" layout vertical>
   <template>
     <style>
       :host {
@@ -22,24 +22,24 @@
         position: relative;
       }
     </style>
-    <core-localstorage id="discussionStorage"
-      name="cidadao-app-discussion-storage"
-      value="{{discussions}}"></core-localstorage>
-    <div id="newDiscussionForm"
+    <core-localstorage id="eventStorage"
+      name="cidadao-app-event-storage"
+      value="{{events}}"></core-localstorage>
+    <div id="newEventForm"
       layout vertical>
-      <paper-input id="newDiscussionTopicInput"
-         on-change="{{addDiscussion}}"
-         value="{{newDiscussionTopic}}"
+      <paper-input id="newEventTopicInput"
+         on-change="{{addEvent}}"
+         value="{{newEventTopic}}"
          floatingLabel
          label="topic"></paper-input>
-      <paper-input id="newDiscussionBodyInput"
-         on-change="{{addDiscussion}}"
-         value="{{newDiscussionBody}}"
+      <paper-input id="newEventBodyInput"
+         on-change="{{addEvent}}"
+         value="{{newEventBody}}"
          floatingLabel
-         label="Add a new discussion"></paper-input>
+         label="Add a new event"></paper-input>
     </div>
     <template
-      repeat="{{discussions}}">
+      repeat="{{events}}">
       <div center horizontal layout class="item">
           <paper-shadow flex horizontal layout z="2">
         <div flex layout horizontal class="card">
@@ -49,11 +49,11 @@
             created by: someone &#8226 7135555555
           </div>
           <div layout vertical >
-            <paper-button flex>
-                <core-icon icon="favorite"></core-icon>
+            <paper-button flex layout horizontal>
+                <core-icon center icon="favorite"></core-icon>
             </paper-button>
             <paper-button flex>
-                <core-icon icon="arrow-drop-down"></core-icon>
+                <core-icon icon="arrow-forward"></core-icon>
             </paper-button>
           </div>
         </div>
@@ -69,29 +69,29 @@
     (function () {
       Polymer({
         // define element prototype here
-        discussions:[],
+        events:[],
         ready: function(){
-          this.$.newDiscussionForm.style.display = "none";
+          this.$.newEventForm.style.display = "none";
         },
-        showNewDiscussionForm: function(){
-          this.$.newDiscussionForm.style.display = "block";
-          this.$.newDiscussionTopicInput.focus();
+        showNewEventForm: function(){
+          this.$.newEventForm.style.display = "block";
+          this.$.newEventTopicInput.focus();
         },
-        addDiscussion: function() {
-          if (this.newDiscussionTopic && this.newDiscussionBody) {
-            this.discussions.unshift({
-              topic: this.newDiscussionTopic,
-              body: this.newDiscussionBody,
+        addEvent: function() {
+          if (this.newEventTopic && this.newEventBody) {
+            this.events.unshift({
+              topic: this.newEventTopic,
+              body: this.newEventBody,
               replies: []
             });
-            this.$.newDiscussionForm.style.display = 'none';
-            this.$.newDiscussionTopicInput.value = null;
-            this.$.newDiscussionBodyInput.value = null;
+            this.$.newEventForm.style.display = 'none';
+            this.$.newEventTopicInput.value = null;
+            this.$.newEventBodyInput.value = null;
           }
         },
-        discussionsChanged:function(){
-          console.log(this.discussions);
-          this.$.discussionStorage.save();
+        eventsChanged:function(){
+          console.log(this.events);
+          this.$.eventStorage.save();
         }
       });
     })();
