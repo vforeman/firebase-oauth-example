@@ -68,14 +68,14 @@
       }
     </style>
 
-    <firebase-element id="firebaseElement"
+    <!-- <firebase-element id="firebaseElement"
       location="https://fbase-oauth-examp.firebaseio.com/test"
       data="{{data}}"
       keys="{{keys}}"
       on-data-ready="{{dataReady}}"
       on-data-change="{{dataChange}}"
       on-error="{{fbElementError}}">
-    </firebase-element>
+    </firebase-element> -->
     <!-- <template repeat="{{key in keys}}">
       <p>{{key}}: {{data[key]}}</p>
     </template> -->
@@ -178,9 +178,6 @@
             default:
               console.log("no new-form on this page");
           }
-        },
-        showNewEventForm: function(){
-          this.$.eventsPage.showNewEventForm();
         }
       });
     })();

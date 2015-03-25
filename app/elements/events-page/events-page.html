@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../../bower_components/firebase-element/firebase-element.html">
 
 <polymer-element name="events-page" attributes="user" layout vertical>
   <template>
@@ -25,6 +26,15 @@
     <core-localstorage id="eventStorage"
       name="cidadao-app-event-storage"
       value="{{events}}"></core-localstorage>
+    <firebase-element
+      id="baseEvents"
+      location="https://fbase-oauth-examp.firebaseio.com"
+      data="{{data}}"
+      keys="{{keys}}"
+      on-data-ready="{{dataReady}}"
+      on-data-change="{{dataChange}}"
+      on-error="{{fbElementError}}">
+    </firebase-element>
     <div id="newEventForm"
       layout vertical>
       <paper-input id="newEventTopicInput"
@@ -92,6 +102,21 @@
         eventsChanged:function(){
           console.log(this.events);
           this.$.eventStorage.save();
+          if(this.$.baseEvents.data){
+            this.$.baseEvents.data.events = this.events;
+          }
+        },
+        dataReady: function(event){
+          console.log(event);
+          console.log(this.$.baseEvents.data);
+          this.$.baseEvents.data.events = this.events;
+
+        },
+        dataChange: function(event){
+          console.log(event);
+        },
+        fbElementError: function(event){
+          console.log(event);
         }
       });
     })();

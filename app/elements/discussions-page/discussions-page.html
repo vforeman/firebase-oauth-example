@@ -25,6 +25,15 @@
     <core-localstorage id="discussionStorage"
       name="cidadao-app-discussion-storage"
       value="{{discussions}}"></core-localstorage>
+      <firebase-element
+        id="baseDiscussions"
+        location="https://fbase-oauth-examp.firebaseio.com"
+        data="{{data}}"
+        keys="{{keys}}"
+        on-data-ready="{{dataReady}}"
+        on-data-change="{{dataChange}}"
+        on-error="{{fbElementError}}">
+      </firebase-element>
     <div id="newDiscussionForm"
       layout vertical>
       <paper-input id="newDiscussionTopicInput"
@@ -92,6 +101,25 @@
         discussionsChanged:function(){
           console.log(this.discussions);
           this.$.discussionStorage.save();
+        },
+        eventsChanged:function(){
+          console.log(this.events);
+          this.$.eventStorage.save();
+          if(this.$.baseDiscussions.data){
+            this.$.baseDiscussions.data.discussions = this.discussions;
+          }
+        },
+        dataReady: function(event){
+          console.log(event);
+          console.log(this.$.baseDiscussions.data);
+          this.$.baseDiscussions.data.discussions = this.discussions;
+
+        },
+        dataChange: function(event){
+          console.log(event);
+        },
+        fbElementError: function(event){
+          console.log(event);
         }
       });
     })();
