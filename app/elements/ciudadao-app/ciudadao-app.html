@@ -16,6 +16,7 @@
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../fire-login/fire-login.html">
 <link rel="import" href="../discussions-page/discussions-page.html">
+<link rel="import" href="../events-page/events-page.html">
 
 <polymer-element name="ciudadao-app" attributes="">
   <template>
@@ -118,18 +119,19 @@
           <div flex>
           </div>
            <paper-button  id="logoutBtn" on-click="{{logout}}"> logout</paper-button>
-           <paper-fab icon="icons:add" on-click="{{showNewDiscussionForm}}"></paper-fab>
+           <paper-fab icon="icons:add" on-click="{{showNewForm}}"></paper-fab>
         </core-toolbar>
         <!-- MAIN CONTENT -->
         <div class="container" layout vertical>
-          <more-route-selector>
+          <more-route-selector selectedPath="{{selectedPath}}">
             <core-pages selected="{{page}}" valueAttr="route">
               <section route="discussions">
                   <discussions-page id="discussionsPage"
                     user="{{user}}"></discussions-page>
               </section>
               <section route="events">
-                  events
+                <events-page id="eventsPage"
+                  user="{{user}}"></events-page>
               </section>
               <section route="login">
                   <fire-login id="fireLogin"
@@ -164,8 +166,21 @@
         toggleDrawer:function(){
           this.$.drawerPanel.togglePanel()
         },
-        showNewDiscussionForm: function(){
-          this.$.discussionsPage.showNewDiscussionForm();
+        showNewForm: function(){
+          console.log(this.selectedPath);
+          switch (this.selectedPath) {
+            case "/discussions":
+              this.$.discussionsPage.showNewDiscussionForm();
+              break;
+            case "/events":
+              this.$.eventsPage.showNewEventForm();
+              break;
+            default:
+              console.log("no new-form on this page");
+          }
+        },
+        showNewEventForm: function(){
+          this.$.eventsPage.showNewEventForm();
         }
       });
     })();
