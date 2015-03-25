@@ -70,9 +70,12 @@
     <!-- <template repeat="{{key in keys}}">
       <p>{{key}}: {{data[key]}}</p>
     </template> -->
-    <core-drawer-panel>
+    <core-drawer-panel id="drawerPanel">
       <core-header-panel drawer>
         <core-toolbar class="medium-tall">
+          <paper-icon-button
+            icon="arrow-back"
+            on-click="{{toggleDrawer}}"></paper-icon-button>
           <span class="">
             Menu
           </span>
@@ -94,8 +97,12 @@
       </core-header-panel>
       <core-header-panel main>
         <core-toolbar class="medium-tall">
+          <paper-icon-button
+            icon="menu"
+            on-click="{{toggleDrawer}}"></paper-icon-button>
           <span  class="">
             Cidadao10
+
           </span>
           <paper-icon-button id="accountBox" icon="account-box"></paper-icon-button>
           <div flex>
@@ -142,7 +149,9 @@
         },
         fbElementError: function(event){
           console.log(event);
-
+        },
+        toggleDrawer:function(){
+          this.$.drawerPanel.togglePanel()
         }
       });
     })();
