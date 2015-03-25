@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
-<polymer-element name="discussions-page" attributes="" layout vertical>
+<polymer-element name="discussions-page" attributes="user" layout vertical>
   <template>
     <style>
       :host {
@@ -18,8 +18,8 @@
          floatingLabel
          label="topic"></paper-input>
       <paper-input id="newDiscussionBodyInput"
-         on-change="{{addDiscussionBody}}"
-         value="{{newDiscussion}}"
+         on-change="{{addDiscussion}}"
+         value="{{newDiscussionBody}}"
          floatingLabel
          label="Add a new discussion"></paper-input>
     </div>
@@ -36,8 +36,8 @@
           this.$.newDiscussionForm.style.display = "block";
         },
         addDiscussion: function() {
-          if (this.newDiscussiontopic && this.newDiscussionBody) {
-            this.data.unshift({
+          if (this.newDiscussionTopic && this.newDiscussionBody) {
+            this.discussions.unshift({
               topic: this.newDiscussionTopic,
               body: this.newDiscussionBody,
               done: false
