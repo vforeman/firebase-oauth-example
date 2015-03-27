@@ -4,7 +4,9 @@
 <link rel="import" href="../../bower_components/paper-shadow/paper-shadow.html">
 <link rel="import" href="../../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<!-- <link rel="import" href="../../bower_components/core-icons/communication-icons.html"> -->
+<link rel="import" href="../discussion-card/discussion-card.html">
 <polymer-element name="discussions-page" attributes="user" layout vertical>
   <template>
     <style>
@@ -44,11 +46,17 @@
       <paper-input id="newDiscussionBodyInput"
          on-change="{{addDiscussion}}"
          value="{{newDiscussionBody}}"
-         floatingLabel
+         floatingL</discussion-card>bel
          label="Add a new discussion"></paper-input>
     </div>
     <template
       repeat="{{discussions}}">
+      <discussion-card model="{{d}}">
+        <h1>{{topic}}</h1>
+        <p>
+          {{body}}
+        </p>
+      </discussion-card>
       <div center horizontal layout class="item">
           <paper-shadow flex horizontal layout z="2">
         <div flex layout horizontal class="card">
@@ -58,11 +66,15 @@
             created by: someone &#8226 7135555555
           </div>
           <div layout vertical >
-            <paper-button flex>
+            <paper-button id="favoriteBtn" >
                 <core-icon icon="favorite"></core-icon>
             </paper-button>
-            <paper-button flex>
+            <paper-button id="expandBtn" >
                 <core-icon icon="arrow-drop-down"></core-icon>
+            </paper-button>
+            <paper-button id="commentBtn"
+              on-click="{{commentBtnHandler}}">
+                <core-icon icon="comment"></core-icon>
             </paper-button>
           </div>
         </div>
