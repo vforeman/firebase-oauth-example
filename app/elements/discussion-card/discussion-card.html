@@ -1,0 +1,67 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../discussion-comments.html">
+
+<polymer-element name="discussion-card" attributes="model" center horizontal layout class="item">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      .item {
+        margin: 1em;
+      }
+
+      .card {
+        width: 300px;
+        background-color: #fff;
+        padding: 1em;
+        position: relative;
+      }
+    </style>
+    <paper-shadow flex horizontal layout z=2>
+      <content select="p"></content>
+      <content select="h1"></content>
+    </paper-shadow>
+    <div id="buttonTray" layout vertical>
+      <paper-button id="favoriteBtn"
+        on-click="{{favoriteBtnHandler}}">
+          <core-icon icon="favorite"></core-icon>
+      </paper-button>
+      <paper-button id="expandBtn"
+        on-click="{{expandBtnHandler}}">
+          <core-icon icon="arrow-drop-down"></core-icon>
+      </paper-button>
+      <paper-button id="commentBtn"
+        on-click="{{commentBtnHandler}}">
+          {{commentBtnHint}}<core-icon icon="comment"></core-icon>
+      </paper-button>
+    </div>
+
+    <paper-toast id="toast"
+      text="msg"></paper-toast>
+  </template>
+  <script>
+    (function () {
+      Polymer({
+        // define element prototype here
+        ready:function(){
+          // console.log(this.data);
+        },
+        toast: function(msg){
+          this.$.toast.text=msg;
+          this.$.toast.show();
+        },
+        commentBtnHandler: function(){
+          this.toast("comment");
+
+        }
+      });
+    })();
+  </script>
+</polymer-element>
