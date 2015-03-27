@@ -5,13 +5,16 @@
 <link rel="import" href="../../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../../bower_components/core-icons/core-icons.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <polymer-element name="discussion-comment" attributes="">
   <template>
     <style>
       :host {
         display: block;
       }
+
     </style>
+    <content></content>
   </template>
   <script>
     (function () {
@@ -21,21 +24,33 @@
     })();
   </script>
 </polymer-element>
-<polymer-element name="discussion-comments" attributes="comments">
+<polymer-element name="discussion-comments" attributes="comments" flex layout vertical >
   <template>
     <style>
       :host {
         display: block;
       }
     </style>
-    <template repeat="{{comments}}">
-      {{body}}
+    <div>
+      <paper-input id="commentInput"
+        label="comment"
+        floatingLabel
+        ></paper-input>
+      <paper-icon-button if="publishCommentBtn"
+        icon="publish"
+        on-click="{{publishComment}}"></paper-icon-button>
+    </div>
+    <template repeat="{{c in comments}}">
+      <discussion-comment>{{c}}</discussion-comment>
     </template>
   </template>
   <script>
     (function () {
       Polymer({
         // define element prototype here
+        publishComment: function(){
+          
+        }
       });
     })();
   </script>
